@@ -8,7 +8,7 @@
             "name": "FastAPI",
             "type": "python",
             "request": "launch",
-            "module": "src.server.src.main"
+            "module": "src.main"
         }
     ]
 }
