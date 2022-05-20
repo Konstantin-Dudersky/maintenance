@@ -76,34 +76,36 @@ export class PageEquipComponent implements OnInit {
     if (this.equip.id == 0) {
       // добавляем новую запись
       this.api.createObject(this.equip).subscribe(
-        (next) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Объект создан',
-            detail: next.name,
-          });
-          this.resetEditMode();
-        },
-        (error) => this.messageService.add({
-          severity: 'error',
-          summary: 'Ошибка создания нового объекта',
-          detail: error.message,
-        }),
+        {
+          next: (next) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Объект создан',
+              detail: next.name,
+            });
+            this.resetEditMode();
+          },
+          error: (error) => this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка создания нового объекта',
+            detail: error.message,
+          })
+        }
       );
     } else {
       // изменяем имеющуюся запись
       this.api.patchEquip(this.equip).subscribe(
-        () => { },
-        (error) => this.messageService.add({
-          severity: 'error',
-          summary: 'Ошибка сохранения',
-          detail: error.message,
-        })
-        ,
-        () => this.messageService.add({
-          severity: 'success',
-          summary: `Объект '${this.equip?.name}' сохранен`
-        })
+        {
+          error: (error) => this.messageService.add({
+            severity: 'error',
+            summary: 'Ошибка сохранения',
+            detail: error.message,
+          }),
+          complete: () => this.messageService.add({
+            severity: 'success',
+            summary: `Объект '${this.equip?.name}' сохранен`
+          })
+        }
       );
       this.resetEditMode();
     }
@@ -117,17 +119,21 @@ export class PageEquipComponent implements OnInit {
       message: 'Вы уверены, что хотите удалить объект?',
       accept: () => {
         this.api.deleteEquip(this.equip!.id).subscribe(
-          (next) => { },
-          (error) => console.error(error),
-          () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Объект удален',
-            });
-            this.router.navigate(['/equips']);
-          },
+          {
+            error: (error) => this.messageService.add({
+              severity: 'error',
+              summary: `Ошибка удаления объекта ${this.equip!.name}`,
+              detail: error.message,
+            }),
+            complete: () => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Объект удален',
+              });
+              this.router.navigate(['/equips']);
+            },
+          }
         );
-
       },
       acceptLabel: 'Да',
       rejectLabel: 'Отмена',

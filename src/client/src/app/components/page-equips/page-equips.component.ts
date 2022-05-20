@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Equip } from 'src/app/models/equip';
+
+import { MessageService } from 'primeng/api';
+
 import { ApiService } from 'src/app/services/api.service';
+import { Equip } from 'src/app/models/equip';
 
 @Component({
   selector: 'app-page-equips',
@@ -9,14 +11,34 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class PageEquipsComponent implements OnInit {
 
-  objects$: Observable<Equip[]>;
+  equips: Equip[] | undefined;
 
-  constructor(private api: ApiService) {
-    this.objects$ = this.api.readObjects();
+  cols = [
+    { field: 'id', header: 'id'},
+    { field: 'name', header: 'Название'},
+    { field: 'description', header: 'Описание'},
+    { field: 'tech_params', header: 'Тех. параметры'},
+  ]
+
+  constructor(
+    private api: ApiService,
+    private messageService: MessageService,
+  ) {
   }
 
   ngOnInit() {
+    this.api.readObjects().subscribe(
+      {
+        next: (next) => {
+          this.equips = next;
+        },
+        error: (error) => this.messageService.add({
+          severity: 'error',
+          summary: 'Ошибка получения списка объектов',
+          detail: error.message,
+        })
+      }
+    )
   }
-
 
 }

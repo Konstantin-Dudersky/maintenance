@@ -1,23 +1,56 @@
-<ng-container *ngIf="objects$ | async as data">
+<ng-container *ngIf="equips">
   <p-toolbar>
     <div class="p-toolbar-group-left">
       <p-button
-        label="Добавить"
-        icon="pi pi-plus"
-        class="mr-2"
-        [routerLink]="['/equip', 0]"
-        ></p-button>
+        icon="pi pi-filter-slash"
+        styleClass="p-button-secondary"
+        pTooltip="Очистить фильтр"
+        (click)="dt.clear()"
+        class="mr-2"></p-button>
     </div>
     <div class="p-toolbar-group-right">
+      <p-button
+        label="Экспорт" icon="pi pi-file"
+        pTooltip="Экспорт в формате csv"
+        styleClass="p-button-secondary"
+        (click)="dt.exportCSV()"
+        class="mr-2"></p-button>
+      <p-button
+        label="Добавить" icon="pi pi-plus"
+        pTooltip="Добавить новый объект"
+        styleClass="p-button-secondary"
+        class="mr-2"
+        [routerLink]="['/equip', 0]"></p-button>
     </div>
   </p-toolbar>
-  <p-table [value]="data">
+  <p-table #dt
+    [columns]="cols" [value]="equips"
+    styleClass="p-datatable-sm">
     <ng-template pTemplate="header">
       <tr>
-        <th>id</th>
-        <th>Название</th>
+        <th [pSortableColumn]="'id'">
+          id <p-sortIcon [field]="'id'"></p-sortIcon>
+        </th>
+        <th [pSortableColumn]="'name'">
+          Название
+          <p-sortIcon [field]="'name'"></p-sortIcon>
+
+        </th>
         <th>Описание</th>
         <th>Тех. параметры</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-columnFilter type="text" field="name" display="row"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="description" display="row"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="tech_params" display="row"></p-columnFilter>
+        </th>
         <th></th>
       </tr>
     </ng-template>
@@ -30,7 +63,11 @@
         <td>
           <p-button
             icon="pi pi-info-circle"
+            class="mr-2"
             [routerLink]="['/equip', equip.id]">
+          </p-button>
+          <p-button
+            icon="pi pi-chart-line">
           </p-button>
         </td>
       </tr>
