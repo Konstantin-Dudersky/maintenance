@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageMainComponent } from './components/page-main/page-main.component';
-import { PageObjectsComponent } from './components/page-objects/page-objects.component';
+import { PageEquipComponent } from './components/page-equip/page-equip.component';
+import { PageEquipsComponent } from './components/page-equips/page-equips.component';
 
 const routes: Routes = [
   { path: 'main', component: PageMainComponent },
-  { path: 'objects', component: PageObjectsComponent },
+  { path: 'equips', component: PageEquipsComponent },
+  { path: 'equip/:id', component: PageEquipComponent },
 ];
 
 @NgModule({

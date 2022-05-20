@@ -17,7 +17,7 @@ export class MenuComponent implements OnInit {
       {
         label: 'Объекты',
         icon: 'pi pi-list',
-        routerLink: 'objects',
+        routerLink: 'equips',
       },
     ];
 

@@ -6,7 +6,7 @@ authors = ["Konstantin-Dudersky <Konstantin.Dudersky@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = "0.77.1"
+fastapi = "0.78.0"
 psycopg2 = "2.9.3"
 sqlalchemy = "1.4.36"
 uvicorn = "0.17.6"
@@ -14,6 +14,7 @@ uvicorn = "0.17.6"
 [tool.poetry.dev-dependencies]
 black = "*"
 flake8 = "*"
+mypy = "*"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

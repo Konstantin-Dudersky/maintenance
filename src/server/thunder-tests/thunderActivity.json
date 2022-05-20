@@ -26,5 +26,38 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "f3d1851f-d856-4877-aa50-616944c201a2",
+    "colId": "history",
+    "containerId": "",
+    "name": "/api/object/{id}",
+    "url": "http://localhost:8000/api/object/1",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-05-14T10:39:25.949Z",
+    "modified": "2022-05-19T08:22:14.942Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "4dea5d37-b804-4271-ae4f-165a9ce23e04",
+    "colId": "history",
+    "containerId": "",
+    "name": "/api/equip/",
+    "url": "http://localhost:8000/api/equip/",
+    "method": "PATCH",
+    "sortNum": 0,
+    "created": "2022-05-14T10:39:25.949Z",
+    "modified": "2022-05-19T08:42:07.564Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\": 1,\n  \"name\": \"test_name\",\n  \"description\": \"test_description\",\n  \"tech_params\": \"test_tech_params\"\n}",
+      "form": []
+    },
+    "tests": []
   }
 ]

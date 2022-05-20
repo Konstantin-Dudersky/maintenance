@@ -1,0 +1,39 @@
+<ng-container *ngIf="objects$ | async as data">
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button
+        label="Добавить"
+        icon="pi pi-plus"
+        class="mr-2"
+        [routerLink]="['/equip', 0]"
+        ></p-button>
+    </div>
+    <div class="p-toolbar-group-right">
+    </div>
+  </p-toolbar>
+  <p-table [value]="data">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>id</th>
+        <th>Название</th>
+        <th>Описание</th>
+        <th>Тех. параметры</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-equip>
+      <tr>
+        <td>{{equip.id}}</td>
+        <td>{{equip.name}}</td>
+        <td>{{equip.description}}</td>
+        <td>{{equip.tech_params}}</td>
+        <td>
+          <p-button
+            icon="pi pi-info-circle"
+            [routerLink]="['/equip', equip.id]">
+          </p-button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-container>

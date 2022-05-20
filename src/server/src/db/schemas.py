@@ -4,10 +4,10 @@ from pydantic import BaseModel
 
 
 class Object(BaseModel):
-    id: int
-    name: str
-    description: str
-    tech_params: str
+    id: int | None
+    name: str | None
+    description: str | None
+    tech_params: str | None
 
     class Config:
         """Config for schema."""
