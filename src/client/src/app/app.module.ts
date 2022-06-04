@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { PageMainComponent } from './components/page-main/page-main.component';
 import { PageEquipComponent } from './components/page-equip/page-equip.component';
+import { PageEquipStatComponent } from './components/page-equip-stat/page-equip-stat.component';
 import { PageEquipsComponent } from './components/page-equips/page-equips.component';
 
 // primeng
@@ -31,6 +32,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     MenuComponent,
     PageMainComponent,
     PageEquipComponent,
+    PageEquipStatComponent,
     PageEquipsComponent,
   ],
   imports: [

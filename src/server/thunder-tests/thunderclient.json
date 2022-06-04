@@ -92,5 +92,19 @@
       "form": []
     },
     "tests": []
+  },
+  {
+    "_id": "6f2bc175-719c-4873-a64d-39c9fdd11a75",
+    "colId": "56d887de-3d3b-4f57-a38c-4013ea560fa6",
+    "containerId": "",
+    "name": "equip-stat-events/id",
+    "url": "http://localhost:8000/api/equip-stat-events/2",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-05-20T13:15:06.378Z",
+    "modified": "2022-05-20T13:21:43.791Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]
