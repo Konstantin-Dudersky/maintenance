@@ -1,12 +1,17 @@
 """Start script for fastapi."""
 
-from fastapi import FastAPI, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+
+from sqlalchemy.orm import Session
+
+from src.settings import settings
+
 import uvicorn
 
 from .db import crud, schemas
 from .db.database import get_sessionmaker
+
 
 app = FastAPI()
 app.add_middleware(
@@ -21,7 +26,7 @@ app.add_middleware(
 def get_db() -> Session:
     """Dependency."""
     db = get_sessionmaker(
-        url="postgresql://postgres:postgres@localhost:5432/maintenance",
+        url=settings.pg_dsn,
     )()
     try:
         yield db

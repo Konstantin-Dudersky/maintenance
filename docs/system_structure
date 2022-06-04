@@ -1,5 +1,6 @@
 resources:
 - name: Source
+- name: Simulator
 - name: DB
   subtitle: База данных
   children: 
@@ -19,6 +20,8 @@ perspectives:
 - name: Схема
   relations:
   - from: Source
+    to: PostgreSQL
+  - from: Simulator
     to: PostgreSQL
   - from: PostgreSQL
     to: TimeseriesDB
