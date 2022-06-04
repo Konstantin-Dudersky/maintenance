@@ -1,0 +1,31 @@
+resources:
+- name: Source
+- name: DB
+  subtitle: База данных
+  children: 
+  - name: PostgreSQL
+  - name: TimeseriesDB
+    description: Для хранения временных данных
+- name: Web
+  children: 
+  - name: Uvicorn
+    subtitle: веб-сервер 
+  - name: FastAPI
+    subtitle: RestAPI
+- name: Client
+  subtitle: Angular 
+    
+perspectives:
+- name: Схема
+  relations:
+  - from: Source
+    to: PostgreSQL
+  - from: PostgreSQL
+    to: TimeseriesDB
+    arrowDirection: bidirectional
+  - from: PostgreSQL
+    to: FastAPI
+  - from: FastAPI
+    to: Uvicorn  
+  - from: Uvicorn
+    to: Client
