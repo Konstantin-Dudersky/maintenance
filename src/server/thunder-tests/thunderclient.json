@@ -106,5 +106,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "2b45961e-87f4-46c6-9deb-df21051ebe79",
+    "colId": "b7d242f2-eaad-4802-918d-cb54fca7786c",
+    "containerId": "",
+    "name": "event_types",
+    "url": "http://localhost:8000/api/event-types/",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-06-05T13:46:31.159Z",
+    "modified": "2022-06-05T13:46:39.761Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

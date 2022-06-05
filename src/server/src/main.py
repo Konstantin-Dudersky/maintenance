@@ -1,12 +1,17 @@
 """Start script for fastapi."""
 
-from fastapi import FastAPI, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
 
-from .db import crud, schemas
-from .db.database import get_sessionmaker
+from sqlalchemy.orm import Session
+
+from src.db import crud, models, schemas
+from src.db.database import get_sessionmaker
+from src.db.seed_db import seed_db
+from src.settings import settings
+from src.utils.export_openapi import export
+
+import uvicorn
 
 app = FastAPI()
 app.add_middleware(
@@ -21,8 +26,8 @@ app.add_middleware(
 def get_db() -> Session:
     """Dependency."""
     db = get_sessionmaker(
-        url="postgresql://postgres:postgres@localhost:5432/maintenance",
-    )()
+        url=settings.pg_dsn,
+    )
     try:
         yield db
     finally:
@@ -30,23 +35,26 @@ def get_db() -> Session:
 
 
 @app.get("/api")
-async def root():
-    return "123"
+async def index() -> str:
+    """Angular app."""
+    return "Angular app."
 
 
-@app.get("/api/objects/", response_model=list[schemas.Equip])
-async def objects(
+@app.get("/api/equips/", response_model=list[schemas.Equip])
+async def get_equips(
     db: Session = Depends(get_db),
-) -> list[schemas.Equip]:
-    return crud.read_objects(db)
+) -> list[models.Equip]:
+    """Возвращает перечень всего оборудования."""
+    return crud.read_equips(db)
 
 
-@app.get("/api/object/{id}/", response_model=schemas.Equip)
-async def object_id(
-    id: int,
+@app.get("/api/equip/{equip_id}/", response_model=schemas.Equip)
+async def get_equips_by_id(
+    equip_id: int,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
-    equip = crud.read_object_by_id(db, id)
+    """Возвращает оборудование по equip_id."""
+    equip = crud.read_equip_by_id(db, equip_id)
     if equip is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return equip
@@ -57,6 +65,7 @@ async def post_equip(
     equip: schemas.Equip,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
+    """Создает новое оборудование."""
     return crud.create_equip(db, equip)
 
 
@@ -65,7 +74,8 @@ async def patch_equip(
     equip: schemas.Equip,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
-    existing_equip = crud.read_object_by_id(db, equip.id)
+    """Обновляет оборудование."""
+    existing_equip = crud.read_equip_by_id(db, equip.equip_id)
     if existing_equip is None:
         pass
     return crud.update_equip_by_id(
@@ -75,26 +85,56 @@ async def patch_equip(
     )
 
 
-@app.delete("/api/equip/{id}/")
+@app.delete("/api/equip/{equip_id}/")
 async def delete_equip_by_id(
-    id: int,
+    equip_id: int,
     db: Session = Depends(get_db),
 ) -> None:
-    crud.delete_equip_by_id(db, id)
+    """Удаляет оборудование по equip_id."""
+    crud.delete_equip_by_id(db, equip_id)
 
 
-@app.get("/api/equip-stat-events/{id}")
-async def read_equip_stat_events(
-    id: int,
+@app.get("/api/event/{event_id}/", response_model=schemas.Event)
+async def get_event_by_id(
+    event_id: int,
     db: Session = Depends(get_db),
-):
-    events = crud.read_equip_stat_events(db, id)
+) -> models.Event:
+    """Возвращает событие по event_id."""
+    return crud.read_event_by_id(db, event_id)
+
+
+@app.get("/api/events/{event_id}/", response_model=list[schemas.Event])
+async def get_events_by_equip_id(
+    event_id: int,
+    db: Session = Depends(get_db),
+) -> list[models.Event]:
+    """Возвращает журнал по equip_id."""
+    events = crud.read_events_by_equip_id(db, event_id)
     if events is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return events
 
 
+@app.get("/api/event-types/", response_model=list[schemas.EventType])
+async def get_event_types(
+    db: Session = Depends(get_db),
+) -> list[models.EventType]:
+    """Возвращает перечень всех типов событий."""
+    return crud.read_event_types(db)
+
+
+def export_openapi() -> None:
+    """Экспортировать спецификацию openapi в файл."""
+    export(app, "../../docs/api-docs.html")
+
+
+def main_seed_db() -> None:
+    """Создает в БД начальные данные."""
+    seed_db(get_sessionmaker(settings.pg_dsn))
+
+
 if __name__ == "__main__":
+    # TODO:0 фильтр сообщений для uvicorn
     uvicorn.run(
         app,
         host="0.0.0.0",

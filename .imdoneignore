@@ -1,0 +1,5 @@
+.obsidian
+.trash
+.imdone/plugins
+src/server/.venv
+src/client/node_modules

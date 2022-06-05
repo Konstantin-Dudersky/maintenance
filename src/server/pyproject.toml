@@ -1,21 +1,66 @@
 [tool.poetry]
+authors = ["Konstantin-Dudersky <Konstantin.Dudersky@gmail.com>"]
+description = ""
 name = "maintenance-server"
 version = "0.1.0"
-description = ""
-authors = ["Konstantin-Dudersky <Konstantin.Dudersky@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.10"
 fastapi = "0.78.0"
+poethepoet = "*"
 psycopg2 = "2.9.3"
-sqlalchemy = "1.4.36"
+python = "^3.10"
+python-dotenv = "0.20.0"
+sqlalchemy = "1.4.37"
 uvicorn = "0.17.6"
 
 [tool.poetry.dev-dependencies]
 black = "*"
 flake8 = "*"
+flake8-annotations = "*"
+flake8-broken-line = "*"
+flake8-commas = "*"
+flake8-docstrings = "*"
+flake8-import-order = "*"
+flake8-multiline-containers = "*"
+flake8-print = "*"
+flake8-return = "*"
+flake8-variables-names = "*"
 mypy = "*"
+pep8-naming = "*"
+pylint = "*"
+
+[tool.poe.tasks]
+create_env = {script = "src.settings:create_env"}
+export_openapi = {script = "src.main:export_openapi"}
+main = {script = "src.main:entry"}
+seed_db = {script = "src.main:main_seed_db"}
+simulator = {script = "src.simulator:main"}
+
+[tool.pylint.BASIC]
+good-names = 'db'
+
+[tool.pylint.'MESSAGES CONTROL']
+disable = ['C0411', 'W0511']
+extension-pkg-whitelist = "pydantic"
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_untyped_defs = true
+follow_imports = "silent"
+no_implicit_reexport = true
+plugins = [
+  "pydantic.mypy",
+]
+warn_redundant_casts = true
+warn_unused_ignores = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
+warn_untyped_fields = true
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core>=1.0.0"]
