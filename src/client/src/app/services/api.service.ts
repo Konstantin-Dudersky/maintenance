@@ -1,32 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Equip } from '../models/equip';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  IP = 'http://localhost:8000'
+  IP = 'http://192.168.116.59:8000';
 
   constructor(private http: HttpClient) { }
 
-  createObject(equip: Equip) {
+  createEquip(equip: Equip): Observable<Equip> {
     return this.http.post<Equip>(
       `${this.IP}/api/equip/`,
       equip,
     )
   }
 
-  readObjects() {
+  readEquips(): Observable<Equip[]> {
     return this.http.get<Equip[]>(
-      `${this.IP}/api/objects/`,
+      `${this.IP}/api/equips/`,
     );
   }
 
-  readObjectById(id: number) {
+  readEquipById(equip_id: number) {
     return this.http.get<Equip>(
-      `${this.IP}/api/object/${id}/`,
+      `${this.IP}/api/equip/${equip_id}/`,
     );
   }
 
@@ -36,9 +37,15 @@ export class ApiService {
     );
   }
 
-  deleteEquip(id: number) {
+  deleteEquip(equip_id: number) {
     return this.http.delete(
-      `${this.IP}/api/equip/${id}/`
+      `${this.IP}/api/equip/${equip_id}/`
+    )
+  }
+
+  readEventsById(equip_id: number): Observable<Event[]> {
+    return this.http.get<Event[]>(
+      `${this.IP}/api/events/${equip_id}/`,
     )
   }
 

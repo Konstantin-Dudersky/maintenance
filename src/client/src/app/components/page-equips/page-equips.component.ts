@@ -27,7 +27,7 @@ export class PageEquipsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.api.readObjects().subscribe(
+    this.api.readEquips().subscribe(
       {
         next: (next) => {
           this.equips = next;

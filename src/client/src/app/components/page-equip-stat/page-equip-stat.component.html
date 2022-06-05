@@ -1,3 +1,38 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button
+      label="Назад"
+      icon="pi pi-chevron-left"
+      [routerLink]="'/equips'"></p-button>
+  </div>
+  <div class="p-toolbar-group-right">
+  </div>
+</p-toolbar>
+
 <ng-container *ngIf="equip">
-  <p>{{ equip | json }}</p>
+  <h1> {{ equip.name }}</h1>
+  <p> Описание: {{ equip.description }}</p>
+  <p> Тех. параметры: {{ equip.tech_params }}</p>
+  <hr>
+  <h2>Режим работы</h2>
+  <hr>
+  <h2>Журнал</h2>
+  <p-toolbar>
+    <div class="p-toolbar-group-left">
+      <p-button
+        label="Добавить"
+        icon="fa-solid fa-plus"
+        (onClick)="event_info_visible=true">
+      </p-button>
+    </div>
+    <div class="p-toolbar-group-right">
+    </div>
+  </p-toolbar>
+
 </ng-container>
+
+<app-event-info #event_info
+  [visible]="event_info_visible"
+  (closed)="event_info_visible=false"></app-event-info>
+
+<!-- <p>{{event_info.}}</p> -->
