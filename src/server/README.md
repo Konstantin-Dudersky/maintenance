@@ -1,4 +1,11 @@
- 
+
+## Работа с проектом
+
+### Экспорт OpenAPI
+
+```sh
+poetry run poe export_openapi
+```
 
 ## Установка
 

@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from src.db import crud, schemas
 from src.db.database import get_sessionmaker
 from src.settings import settings
+from src.utils.export_openapi import export
 
 import uvicorn
 
@@ -105,8 +106,13 @@ async def get_events_by_id(
     return events
 
 
+def export_openapi() -> None:
+    """Экспортировать спецификацию openapi в файл."""
+    export(app, "../../docs/api-docs.html")
+
+
 if __name__ == "__main__":
-    # TODO:-10 фильтр сообщений для uvicorn
+    # TODO:0 фильтр сообщений для uvicorn
     uvicorn.run(
         app,
         host="0.0.0.0",

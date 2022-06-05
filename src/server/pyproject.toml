@@ -32,6 +32,7 @@ pep8-naming = "*"
 main = {script = "src.main:entry"}
 simulator = {script = "src.simulator:main"}
 create_env = {script = "src.settings:create_env"}
+export_openapi = {script = "src.main:export_openapi"}
 
 [tool.mypy]
 check_untyped_defs = true
