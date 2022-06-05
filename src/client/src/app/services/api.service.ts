@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Equip } from '../models/equip';
+import { Event } from '../models/event';
 import { Observable } from 'rxjs';
+import { EventType } from '../models/eventType';
 
 @Injectable({
   providedIn: 'root'
@@ -46,6 +48,18 @@ export class ApiService {
   readEventsById(equip_id: number): Observable<Event[]> {
     return this.http.get<Event[]>(
       `${this.IP}/api/events/${equip_id}/`,
+    )
+  }
+
+  getEventById(event_id: number): Observable<Event> {
+    return this.http.get<Event>(
+      `${this.IP}/api/event/${event_id}/`,
+    );
+  }
+
+  readEventTypes(): Observable<EventType[]> {
+    return this.http.get<EventType[]>(
+      `${this.IP}/api/event-types/`,
     )
   }
 

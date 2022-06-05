@@ -13,26 +13,25 @@
   <h1> {{ equip.name }}</h1>
   <p> Описание: {{ equip.description }}</p>
   <p> Тех. параметры: {{ equip.tech_params }}</p>
-  <hr>
+  <p-divider></p-divider>
   <h2>Режим работы</h2>
-  <hr>
+  <p-divider></p-divider>
   <h2>Журнал</h2>
   <p-toolbar>
     <div class="p-toolbar-group-left">
       <p-button
         label="Добавить"
         icon="fa-solid fa-plus"
-        (onClick)="event_info_visible=true">
+        (onClick)="event_info.open(1)">
       </p-button>
     </div>
     <div class="p-toolbar-group-right">
     </div>
   </p-toolbar>
 
+  <app-event-info #event_info
+    [equip_id]="equip.equip_id"
+    [equip_name]="equip.name"
+    [eventTypes]="eventTypes">
+  </app-event-info>
 </ng-container>
-
-<app-event-info #event_info
-  [visible]="event_info_visible"
-  (closed)="event_info_visible=false"></app-event-info>
-
-<!-- <p>{{event_info.}}</p> -->

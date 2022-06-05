@@ -17,10 +17,13 @@ import { PageEquipsComponent } from './components/page-equips/page-equips.compon
 
 // primeng
 import { ButtonModule } from 'primeng/button';
+import {CalendarModule} from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelModule } from 'primeng/panel';
@@ -46,9 +49,12 @@ import { ToolbarModule } from 'primeng/toolbar';
     ReactiveFormsModule,
     // primeng
     ButtonModule,
+    CalendarModule,
     CardModule,
     ConfirmDialogModule,
     DialogModule,
+    DividerModule,
+    DropdownModule,
     InputTextModule,
     MenubarModule,
     PanelModule,
@@ -60,3 +66,5 @@ import { ToolbarModule } from 'primeng/toolbar';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// TODO обновить до v14 когда обновится primeblocks
