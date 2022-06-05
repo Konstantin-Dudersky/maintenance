@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from src.db import crud, schemas
 from src.db.database import get_sessionmaker
+from src.db.seed_db import seed_db
 from src.settings import settings
 from src.utils.export_openapi import export
 
@@ -27,7 +28,7 @@ def get_db() -> Session:
     """Dependency."""
     db = get_sessionmaker(
         url=settings.pg_dsn,
-    )()
+    )
     try:
         yield db
     finally:
@@ -106,9 +107,22 @@ async def get_events_by_id(
     return events
 
 
+@app.get("/api/event-types/", response_model=list[schemas.EventType])
+async def get_event_types(
+    db: Session = Depends(get_db),
+) -> list[schemas.EventType]:
+    """Возвращает перечень всех типов событий."""
+    return crud.read_event_types(db)
+
+
 def export_openapi() -> None:
     """Экспортировать спецификацию openapi в файл."""
     export(app, "../../docs/api-docs.html")
+
+
+def main_seed_db() -> None:
+    """Создает в БД начальные данные."""
+    seed_db(get_sessionmaker(settings.pg_dsn))
 
 
 if __name__ == "__main__":

@@ -7,6 +7,11 @@
 poetry run poe export_openapi
 ```
 
+### Заполнить БД начальными данными
+```sh
+poetry run poe seed_db
+```
+
 ## Установка
 
 - создать БД maintenance в PostgreSQL

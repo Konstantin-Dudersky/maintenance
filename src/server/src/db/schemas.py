@@ -27,3 +27,16 @@ class Events(BaseModel):
         """Config for schema."""
 
         orm_mode = True
+
+
+class EventType(BaseModel):
+    """Типы событий."""
+
+    event_type_id: int
+    name: str
+    description: str
+
+    class Config:
+        """Config for schema."""
+
+        orm_mode = True

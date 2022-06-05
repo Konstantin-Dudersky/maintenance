@@ -20,4 +20,4 @@ def get_sessionmaker(url: str) -> sessionmaker:
         bind=engine,
     )
     Base.metadata.create_all(bind=engine)
-    return session_maker
+    return session_maker()

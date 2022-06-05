@@ -68,3 +68,29 @@ def read_event_by_id(
     """Возвращает журнал по equip_id."""
     stmt = select(models.Event).where(models.Event.equip_id == equip_id)
     return db.execute(stmt).scalars().all()
+
+
+# ------------------------------------------------------------------------------
+# EventType
+
+
+def create_event_type(
+    name: str,
+    description: str,
+    db: Session,
+) -> models.EventType:
+    """Создает новый тип события."""
+    event_type = models.EventType(
+        name=name,
+        description=description,
+    )
+    db.add(event_type)
+    db.commit()
+
+
+def read_event_types(
+    db: Session,
+) -> list[models.EventType]:
+    """Возвращает перечень всех типов событий."""
+    stmt = select(models.EventType)
+    return db.execute(stmt).scalars.all()
