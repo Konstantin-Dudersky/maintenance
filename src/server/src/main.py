@@ -106,6 +106,7 @@ async def get_events_by_id(
 
 
 if __name__ == "__main__":
+    # TODO:-10 фильтр сообщений для uvicorn
     uvicorn.run(
         app,
         host="0.0.0.0",
