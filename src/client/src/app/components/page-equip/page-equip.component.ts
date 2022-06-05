@@ -48,14 +48,14 @@ export class PageEquipComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       switchMap(routeParams => {
-        let id = Number(routeParams.get('id'));
+        let id = Number(routeParams.get('equip_id'));
         if (id == 0) {
           let new_equip = new Equip();
           this.form.enable();
           return of(new_equip)
         } else {
           this.form.disable();
-          return this.api.readObjectById(id);
+          return this.api.readEquipById(id);
         }
       })
     ).subscribe(equip => {
@@ -73,9 +73,9 @@ export class PageEquipComponent implements OnInit {
     this.equip.name = this.form_name.value;
     this.equip.description = this.form_description.value;
     this.equip.tech_params = this.form_tech_params.value;
-    if (this.equip.id == 0) {
+    if (this.equip.equip_id == 0) {
       // добавляем новую запись
-      this.api.createObject(this.equip).subscribe(
+      this.api.createEquip(this.equip).subscribe(
         {
           next: (next) => {
             this.messageService.add({
@@ -118,7 +118,7 @@ export class PageEquipComponent implements OnInit {
     this.confirmationService.confirm({
       message: 'Вы уверены, что хотите удалить объект?',
       accept: () => {
-        this.api.deleteEquip(this.equip!.id).subscribe(
+        this.api.deleteEquip(this.equip!.equip_id).subscribe(
           {
             error: (error) => this.messageService.add({
               severity: 'error',

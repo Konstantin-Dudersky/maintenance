@@ -8,8 +8,8 @@ import { PageEquipStatComponent } from './components/page-equip-stat/page-equip-
 const routes: Routes = [
   { path: 'main', component: PageMainComponent },
   { path: 'equips', component: PageEquipsComponent },
-  { path: 'equip/:id', component: PageEquipComponent },
-  { path: 'equip-stat/:id', component: PageEquipStatComponent },
+  { path: 'equip/:equip_id', component: PageEquipComponent },
+  { path: 'equip-stat/:equip_id', component: PageEquipStatComponent },
 ];
 
 @NgModule({

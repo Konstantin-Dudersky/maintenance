@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 // components
+import { EventInfoComponent } from './components/event-info/event-info.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { PageMainComponent } from './components/page-main/page-main.component';
 import { PageEquipComponent } from './components/page-equip/page-equip.component';
@@ -19,6 +20,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelModule } from 'primeng/panel';
@@ -29,6 +31,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
+    EventInfoComponent,
     MenuComponent,
     PageMainComponent,
     PageEquipComponent,
@@ -45,6 +48,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     ButtonModule,
     CardModule,
     ConfirmDialogModule,
+    DialogModule,
     InputTextModule,
     MenubarModule,
     PanelModule,

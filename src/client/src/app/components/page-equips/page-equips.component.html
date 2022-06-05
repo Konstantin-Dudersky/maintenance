@@ -56,7 +56,7 @@
     </ng-template>
     <ng-template pTemplate="body" let-equip>
       <tr>
-        <td>{{equip.id}}</td>
+        <td>{{equip.equip_id}}</td>
         <td>{{equip.name}}</td>
         <td>{{equip.description}}</td>
         <td>{{equip.tech_params}}</td>
@@ -64,11 +64,11 @@
           <p-button
             icon="pi pi-info-circle"
             class="mr-2"
-            [routerLink]="['/equip', equip.id]">
+            [routerLink]="['/equip', equip.equip_id]">
           </p-button>
           <p-button
             icon="pi pi-chart-line"
-            [routerLink]="['/equip-stat', equip.id]">
+            [routerLink]="['/equip-stat', equip.equip_id]">
           </p-button>
         </td>
       </tr>
