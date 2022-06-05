@@ -18,7 +18,7 @@ lists:
     hidden: true
     id: 0
     name: What's Due?
-  - hidden: false
+  - hidden: true
     ignore: false
     name: NOTE
   - hidden: false
@@ -26,27 +26,26 @@ lists:
   - hidden: false
     name: DOING
   - hidden: false
-    ignore: true
+    ignore: false
     name: DONE
-  - filter: 'completedDate > "${14 days ago}" -completed'
-    hidden: false
+  - filter: 'completedDate > "${7 days ago}" -completed'
+    hidden: true
     id: 1
     name: Recently Completed
   - name: XXX
-    hidden: false
+    hidden: true
     ignore: false
   - name: HACK
-    hidden: false
+    hidden: true
     ignore: false
   - name: IDEA
-    hidden: false
+    hidden: true
     ignore: false
   - name: FIXME
-    hidden: false
+    hidden: true
     ignore: false
 settings:
-  openIn: default
-  customOpenIn: ''
+  openIn: code
   editorTheme: blackboard
   journalType: Single File
   journalPath: null
