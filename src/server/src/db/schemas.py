@@ -4,7 +4,9 @@ from pydantic import BaseModel
 
 
 class Equip(BaseModel):
-    id: int | None
+    """Представление для Equip."""
+
+    equip_id: int | None
     name: str | None
     description: str | None
     tech_params: str | None
@@ -16,7 +18,9 @@ class Equip(BaseModel):
 
 
 class Events(BaseModel):
-    id: int | None
+    """Представление для Events."""
+
+    event_id: int | None
     description: str | None
 
     class Config:

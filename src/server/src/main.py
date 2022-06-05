@@ -5,12 +5,11 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.orm import Session
 
+from src.db import crud, schemas
+from src.db.database import get_sessionmaker
 from src.settings import settings
 
 import uvicorn
-
-from .db import crud, schemas
-from .db.database import get_sessionmaker
 
 
 app = FastAPI()
@@ -35,23 +34,26 @@ def get_db() -> Session:
 
 
 @app.get("/api")
-async def root():
-    return "123"
+async def index() -> str:
+    """Angular app."""
+    return "Angular app."
 
 
-@app.get("/api/objects/", response_model=list[schemas.Equip])
-async def objects(
+@app.get("/api/equips/", response_model=list[schemas.Equip])
+async def get_equips(
     db: Session = Depends(get_db),
 ) -> list[schemas.Equip]:
-    return crud.read_objects(db)
+    """Возвращает перечень всего оборудования."""
+    return crud.read_equips(db)
 
 
-@app.get("/api/object/{id}/", response_model=schemas.Equip)
-async def object_id(
-    id: int,
+@app.get("/api/equip/{equip_id}/", response_model=schemas.Equip)
+async def get_equips_by_id(
+    equip_id: int,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
-    equip = crud.read_object_by_id(db, id)
+    """Возвращает оборудование по equip_id."""
+    equip = crud.read_equip_by_id(db, equip_id)
     if equip is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return equip
@@ -62,6 +64,7 @@ async def post_equip(
     equip: schemas.Equip,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
+    """Создает новое оборудование."""
     return crud.create_equip(db, equip)
 
 
@@ -70,7 +73,8 @@ async def patch_equip(
     equip: schemas.Equip,
     db: Session = Depends(get_db),
 ) -> schemas.Equip:
-    existing_equip = crud.read_object_by_id(db, equip.id)
+    """Обновляет оборудование."""
+    existing_equip = crud.read_equip_by_id(db, equip.equip_id)
     if existing_equip is None:
         pass
     return crud.update_equip_by_id(
@@ -80,20 +84,22 @@ async def patch_equip(
     )
 
 
-@app.delete("/api/equip/{id}/")
+@app.delete("/api/equip/{event_id}/")
 async def delete_equip_by_id(
-    id: int,
+    event_id: int,
     db: Session = Depends(get_db),
 ) -> None:
-    crud.delete_equip_by_id(db, id)
+    """Удаляет оборудование по equip_id."""
+    crud.delete_equip_by_id(db, event_id)
 
 
-@app.get("/api/equip-stat-events/{id}")
-async def read_equip_stat_events(
-    id: int,
+@app.get("/api/events/{event_id}/", response_model=list[schemas.Events])
+async def get_events_by_id(
+    event_id: int,
     db: Session = Depends(get_db),
-):
-    events = crud.read_equip_stat_events(db, id)
+) -> list[schemas.Events]:
+    """Возвращает журнал по equip_id."""
+    events = crud.read_event_by_id(db, event_id)
     if events is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return events

@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     pg_dsn: PostgresDsn = (
         """postgresql://postgres:postgres@localhost:5432/maintenance"""
     )
+    debug: bool = False
 
     class Config:
         """Настройки."""
@@ -45,7 +46,7 @@ def create_env() -> None:
             dotenv_path=ENV_FILE,
             key_to_set=key,
             value_to_set=value,
-            quote_mode="always",
+            quote_mode="never",
             export=False,
             encoding="utf-8",
         )
@@ -54,4 +55,4 @@ def create_env() -> None:
 settings = Settings()
 
 if __name__ == "__main__":
-    print(settings.dict())
+    pass

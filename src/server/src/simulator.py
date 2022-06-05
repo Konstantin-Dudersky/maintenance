@@ -10,7 +10,6 @@ class Simulator:
     async def run(self: "Simulator") -> None:
         """Основной цикл."""
         while True:
-            print("123")
             await asyncio.sleep(1)
 
 
