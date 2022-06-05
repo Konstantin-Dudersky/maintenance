@@ -48,7 +48,7 @@ def update_equip_by_id(
     for key, value in updated_data.items():
         setattr(existing_equip, key, value)
     db.commit()
-    return read_equip_by_id(db, updated_equip.id)
+    return read_equip_by_id(db, updated_equip.equip_id)
 
 
 def delete_equip_by_id(
@@ -61,7 +61,19 @@ def delete_equip_by_id(
     db.commit()
 
 
+# Event -----------------------------------------------------------------------
+
+
 def read_event_by_id(
+    db: Session,
+    event_id: int,
+) -> models.Event:
+    """Возвращает событие по event_id."""
+    stmt = select(models.Event).where(models.Event.event_id == event_id)
+    return db.execute(stmt).scalars().first()
+
+
+def read_events_by_equip_id(
     db: Session,
     equip_id: int,
 ) -> list[models.Event] | None:
@@ -70,8 +82,7 @@ def read_event_by_id(
     return db.execute(stmt).scalars().all()
 
 
-# ------------------------------------------------------------------------------
-# EventType
+# EventType -------------------------------------------------------------------
 
 
 def create_event_type(
@@ -86,6 +97,7 @@ def create_event_type(
     )
     db.add(event_type)
     db.commit()
+    return event_type
 
 
 def read_event_types(
@@ -93,4 +105,4 @@ def read_event_types(
 ) -> list[models.EventType]:
     """Возвращает перечень всех типов событий."""
     stmt = select(models.EventType)
-    return db.execute(stmt).scalars.all()
+    return db.execute(stmt).scalars().all()

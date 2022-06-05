@@ -3,8 +3,8 @@
 ```mermaid
 %%{init: {'theme':'neutral'}}%%
 erDiagram
- 	Equip ||--o{ Event : contains
- 	Event }|--|| EventType : is
+ 	Equip ||--o{ Event : equip_id
+ 	Event }|--|| EventType : event_type_id
     Equip {
         int equip_id PK
         string name
@@ -14,7 +14,7 @@ erDiagram
     Event {
     	int event_id PK
     	int equip_id FK
-    	int event_type FK
+    	int event_type_id FK
     	datetime ts
     	string description
     }

@@ -12,5 +12,12 @@
     "created": "2022-05-20T13:14:46.404Z",
     "sortNum": 20000,
     "folders": []
+  },
+  {
+    "_id": "b7d242f2-eaad-4802-918d-cb54fca7786c",
+    "colName": "event_type",
+    "created": "2022-06-05T13:46:06.164Z",
+    "sortNum": 30000,
+    "folders": []
   }
 ]

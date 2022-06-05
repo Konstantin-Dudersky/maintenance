@@ -5,14 +5,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from sqlalchemy.orm import Session
 
-from src.db import crud, schemas
+from src.db import crud, models, schemas
 from src.db.database import get_sessionmaker
 from src.db.seed_db import seed_db
 from src.settings import settings
 from src.utils.export_openapi import export
 
 import uvicorn
-
 
 app = FastAPI()
 app.add_middleware(
@@ -44,7 +43,7 @@ async def index() -> str:
 @app.get("/api/equips/", response_model=list[schemas.Equip])
 async def get_equips(
     db: Session = Depends(get_db),
-) -> list[schemas.Equip]:
+) -> list[models.Equip]:
     """Возвращает перечень всего оборудования."""
     return crud.read_equips(db)
 
@@ -86,22 +85,31 @@ async def patch_equip(
     )
 
 
-@app.delete("/api/equip/{event_id}/")
+@app.delete("/api/equip/{equip_id}/")
 async def delete_equip_by_id(
-    event_id: int,
+    equip_id: int,
     db: Session = Depends(get_db),
 ) -> None:
     """Удаляет оборудование по equip_id."""
-    crud.delete_equip_by_id(db, event_id)
+    crud.delete_equip_by_id(db, equip_id)
 
 
-@app.get("/api/events/{event_id}/", response_model=list[schemas.Events])
-async def get_events_by_id(
+@app.get("/api/event/{event_id}/", response_model=schemas.Event)
+async def get_event_by_id(
     event_id: int,
     db: Session = Depends(get_db),
-) -> list[schemas.Events]:
+) -> models.Event:
+    """Возвращает событие по event_id."""
+    return crud.read_event_by_id(db, event_id)
+
+
+@app.get("/api/events/{event_id}/", response_model=list[schemas.Event])
+async def get_events_by_equip_id(
+    event_id: int,
+    db: Session = Depends(get_db),
+) -> list[models.Event]:
     """Возвращает журнал по equip_id."""
-    events = crud.read_event_by_id(db, event_id)
+    events = crud.read_events_by_equip_id(db, event_id)
     if events is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return events
@@ -110,7 +118,7 @@ async def get_events_by_id(
 @app.get("/api/event-types/", response_model=list[schemas.EventType])
 async def get_event_types(
     db: Session = Depends(get_db),
-) -> list[schemas.EventType]:
+) -> list[models.EventType]:
     """Возвращает перечень всех типов событий."""
     return crud.read_event_types(db)
 

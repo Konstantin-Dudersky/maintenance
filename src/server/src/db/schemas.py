@@ -6,7 +6,7 @@ from pydantic import BaseModel
 class Equip(BaseModel):
     """Представление для Equip."""
 
-    equip_id: int | None
+    equip_id: int
     name: str | None
     description: str | None
     tech_params: str | None
@@ -17,10 +17,11 @@ class Equip(BaseModel):
         orm_mode = True
 
 
-class Events(BaseModel):
-    """Представление для Events."""
+class Event(BaseModel):
+    """Представление для Event."""
 
-    event_id: int | None
+    event_id: int
+    event_type_id: int
     description: str | None
 
     class Config:
