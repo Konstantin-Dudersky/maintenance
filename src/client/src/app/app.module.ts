@@ -67,4 +67,3 @@ import { ToolbarModule } from 'primeng/toolbar';
 })
 export class AppModule { }
 
-// TODO обновить до v14 когда обновится primeblocks

@@ -46,6 +46,7 @@ lists:
     ignore: false
 settings:
   openIn: code
+  customOpenIn: ''
   editorTheme: blackboard
   journalType: Single File
   journalPath: null
