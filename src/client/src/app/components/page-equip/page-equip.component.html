@@ -8,12 +8,6 @@
 
   <div class="p-toolbar-group-right">
     <p-button
-      [icon]="'pi pi-pencil'"
-      [label]="'Редактировать'"
-      [styleClass]="'p-button-secondary mr-2'"
-      (onClick)="setEditMode()">
-    </p-button>
-    <p-button
       icon="pi pi-trash"
       [label]="'Удалить'"
       styleClass="p-button-secondary"
@@ -23,41 +17,67 @@
 </p-toolbar>
 
 <ng-container *ngIf="equip">
-  <p-card [header]="equip.name">
-    <div class="field">
-      <label for="name" class="block">Обозначение</label>
-      <input
-        id="name" type="text" pInputText
-        [formControl]="form_name" />
-    </div>
-    <div class="field">
-      <label for="description" class="block">Описание</label>
-      <input
-        id="name" type="text" pInputText
-        [formControl]="form_description" />
-    </div>
-    <div class="field">
-      <label for="tech_params" class="block">Технические параметры</label>
-      <input
-        id="name" type="text" pInputText
-        [formControl]="form_tech_params" />
-    </div>
-    <ng-template pTemplate="footer">
-      <div *ngIf="form.enabled">
-        <span class="p-buttonset">
-          <button pButton
-            type="button" label="Сохранить"
-            icon="pi pi-check"
-            (click)="saveChanges()"></button>
-          <button
-            pButton
-            type="button" label="Отмена"
-            icon="pi pi-times"
-            (click)="resetEditMode()"></button>
-        </span>
-      </div>
-    </ng-template>
-  </p-card>
+  <h1 class="ml-4">{{ equip.name }}</h1>
+  <p-accordion>
+    <p-accordionTab [header]="'Основные данные'">
+      <p-toolbar>
+        <div class="p-toolbar-group-left">
+          <p-button
+            [icon]="'pi pi-pencil'"
+            [label]="'Редактировать'"
+            [styleClass]="'p-button-secondary mr-2'"
+            (onClick)="setEditMode()">
+          </p-button>
+        </div>
+        <div class="p-toolbar-group-right">
+        </div>
+      </p-toolbar>
+
+      <p-card>
+        <div class="field">
+          <label for="name" class="block">Обозначение</label>
+          <input
+            id="name" type="text" pInputText
+            [formControl]="form_name" />
+        </div>
+        <div class="field">
+          <label for="description" class="block">Описание</label>
+          <input
+            id="name" type="text" pInputText
+            [formControl]="form_description" />
+        </div>
+        <div class="field">
+          <label for="tech_params" class="block">Технические параметры</label>
+          <input
+            id="name" type="text" pInputText
+            [formControl]="form_tech_params" />
+        </div>
+        <ng-template pTemplate="footer">
+          <div *ngIf="form.enabled">
+            <span class="p-buttonset">
+              <button pButton
+                type="button" label="Сохранить"
+                icon="pi pi-check"
+                (click)="saveChanges()"></button>
+              <button
+                pButton
+                type="button" label="Отмена"
+                icon="pi pi-times"
+                (click)="resetEditMode()"></button>
+            </span>
+          </div>
+        </ng-template>
+      </p-card>
+    </p-accordionTab>
+
+    <p-accordionTab [header]="'Периодические работы'">
+      <app-event-plan-cyclic
+        [equip_id]="equip_id"></app-event-plan-cyclic>
+    </p-accordionTab>
+    <p-accordionTab header="Разовые работы">
+      Content 2
+    </p-accordionTab>
+  </p-accordion>
 </ng-container>
 
 <p-confirmDialog header="Удаление записи" icon="pi pi-exclamation-triangle">

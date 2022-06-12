@@ -16,8 +16,9 @@ import { PageEquipStatComponent } from './components/page-equip-stat/page-equip-
 import { PageEquipsComponent } from './components/page-equips/page-equips.component';
 
 // primeng
+import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -30,11 +31,13 @@ import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { EventPlanCyclicComponent } from './components/page-equip/event-plan-cyclic/event-plan-cyclic.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventInfoComponent,
+    EventPlanCyclicComponent,
     MenuComponent,
     PageMainComponent,
     PageEquipComponent,
@@ -48,6 +51,7 @@ import { ToolbarModule } from 'primeng/toolbar';
     HttpClientModule,
     ReactiveFormsModule,
     // primeng
+    AccordionModule,
     ButtonModule,
     CalendarModule,
     CardModule,

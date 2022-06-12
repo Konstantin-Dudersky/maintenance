@@ -1,0 +1,36 @@
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button
+      [icon]="'fa-solid fa-add'"
+      [label]="'Добавить'"></p-button>
+  </div>
+</p-toolbar>
+
+<p-table #dt
+  [columns]="cols"
+  [styleClass]="'p-datatable-sm p-datatable-gridlines'"
+  [value]="event_plan">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Название</th>
+      <th>Период</th>
+      <th>Описание</th>
+      <th [ngStyle]="{'width': '0px'}"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-event>
+    <tr>
+      <td>{{ event.name }}</td>
+      <td>{{ event.value }} ч</td>
+      <td>{{ event.description }}</td>
+      <td>
+        <p-button
+          [icon]="'fa-solid fa-edit'"
+          [pTooltip]="'Редактировать'"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    Итого: {{event_plan ? event_plan.length : 0 }}
+  </ng-template>
+</p-table>
