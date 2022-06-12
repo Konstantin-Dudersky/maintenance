@@ -120,5 +120,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "3e12e1fc-ece1-496d-b0a8-c487f863c546",
+    "colId": "d1d343f5-c9c3-4a43-91cd-a789de2d20ff",
+    "containerId": "",
+    "name": "event_plan",
+    "url": "http://localhost:8000/api/1/event-plan",
+    "method": "GET",
+    "sortNum": 10000,
+    "created": "2022-06-12T06:21:01.669Z",
+    "modified": "2022-06-12T06:21:19.770Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

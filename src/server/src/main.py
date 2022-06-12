@@ -105,11 +105,11 @@ async def get_event_by_id(
 
 @app.get("/api/events/{event_id}/", response_model=list[schemas.Event])
 async def get_events_by_equip_id(
-    event_id: int,
+    equip_id: int,
     db: Session = Depends(get_db),
 ) -> list[models.Event]:
     """Возвращает журнал по equip_id."""
-    events = crud.read_events_by_equip_id(db, event_id)
+    events = crud.read_events_by_equip_id(db, equip_id)
     if events is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
     return events
@@ -121,6 +121,15 @@ async def get_event_types(
 ) -> list[models.EventType]:
     """Возвращает перечень всех типов событий."""
     return crud.read_event_types(db)
+
+
+@app.get("/api/{equip_id}/event-plan/", response_model=list[schemas.EventPlan])
+async def get_event_plan(
+    equip_id: int,
+    db: Session = Depends(get_db),
+) -> list[schemas.EventPlan]:
+    """Получить план работ."""
+    return crud.read_event_plan(db, equip_id)
 
 
 def export_openapi() -> None:

@@ -8,6 +8,7 @@ erDiagram
  	Event }|--|| EventStatus : event_status_id
  	EventPlan }o--|| Equip : equip_id
  	EventPlan }o--|| EventType : event_type_id
+ 	Event }o--|| EventPlan : event_plan_id
  	
     Equip {
         int equip_id PK
@@ -36,6 +37,8 @@ erDiagram
     	int event_plan_id PK
     	int equip_id FK
     	int event_type_id FK
+    	str name
+    	str description
     	int value "Период выполнения"
     }
     
@@ -45,8 +48,11 @@ erDiagram
     	int equip_id FK
     	int event_type_id FK
     	int event_status_id FK
-    	datetime ts
+    	int event_plan_id FK "Из какой планируемой задачи появилась эта задача"
     	string description
+    	datetime planned_ts "Статус - запланирована"
+    	datetime inwork_ts "Статус - в работе"
+    	datetime done_ts "Статус - выполнена"
     }
     
 ```

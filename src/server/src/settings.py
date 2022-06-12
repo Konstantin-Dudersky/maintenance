@@ -19,13 +19,14 @@ else:
     from pydantic import PostgresDsn
 
 ENV_FILE = ".env"
+ENCODING = "utf-8"
 
 
 class Settings(BaseSettings):
     """Модель для сохранения настроек."""
 
     pg_dsn: PostgresDsn = (
-        """postgresql://postgres:postgres@localhost:5432/maintenance"""
+        "postgresql://postgres:postgres@localhost:5432/maintenance"
     )
     debug: bool = False
 
@@ -33,14 +34,14 @@ class Settings(BaseSettings):
         """Настройки."""
 
         env_file = ENV_FILE
-        env_file_encoding = "utf-8"
+        env_file_encoding = ENCODING
 
 
 def create_env() -> None:
     """Записывает файл с дефолтными значениями."""
     # создает файл или очищает, если уже был
-    with open(".env", "w") as f:
-        f.write("")
+    with open(".env", "w", encoding=ENCODING) as file:
+        file.write("")
     for key, value in Settings().dict().items():
         set_key(
             dotenv_path=ENV_FILE,
@@ -48,7 +49,7 @@ def create_env() -> None:
             value_to_set=value,
             quote_mode="never",
             export=False,
-            encoding="utf-8",
+            encoding=ENCODING,
         )
 
 

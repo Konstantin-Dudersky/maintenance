@@ -1,5 +1,7 @@
 """Операции с БД."""
 
+from fastapi import HTTPException, status
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -86,15 +88,14 @@ def read_events_by_equip_id(
 
 
 def create_event_type(
-    name: str,
+    name: models.EventTypes,
     description: str,
     db: Session,
 ) -> models.EventType:
     """Создает новый тип события."""
-    event_type = models.EventType(
-        name=name,
-        description=description,
-    )
+    event_type = models.EventType()
+    event_type.name = name
+    event_type.description = description
     db.add(event_type)
     db.commit()
     return event_type
@@ -106,3 +107,39 @@ def read_event_types(
     """Возвращает перечень всех типов событий."""
     stmt = select(models.EventType)
     return db.execute(stmt).scalars().all()
+
+
+# EventStatus -----------------------------------------------------------------
+
+
+def create_event_status(
+    db: Session,
+    name: models.EventStatuses,
+    description: str,
+) -> models.EventStatus:
+    """Создает новое состояние события."""
+    event_status = models.EventStatus()
+    event_status.name = name
+    event_status.description = description
+    db.add(event_status)
+    db.commit()
+    return event_status
+
+
+# EventPlan -------------------------------------------------------------------
+
+
+def read_event_plan(
+    db: Session,
+    equip_id: int,
+) -> models.EventPlan:
+    """Получить план работ."""
+    stmt = select(models.Equip).where(models.Equip.equip_id == equip_id)
+    equip: models.Equip = db.scalars(stmt).first()
+    if equip is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Оборудование с equip_id={equip_id} не найдено.",
+        )
+    stmt = select(models.EventPlan).where(models.EventPlan.equip == equip)
+    return db.scalars(stmt).all()
