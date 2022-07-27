@@ -125,7 +125,7 @@
     "_id": "3e12e1fc-ece1-496d-b0a8-c487f863c546",
     "colId": "d1d343f5-c9c3-4a43-91cd-a789de2d20ff",
     "containerId": "",
-    "name": "event_plan",
+    "name": "event_plan_for_equip",
     "url": "http://localhost:8000/api/1/event-plan",
     "method": "GET",
     "sortNum": 10000,
@@ -133,6 +133,39 @@
     "modified": "2022-06-12T06:21:19.770Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "8b6a2e68-a04b-4465-b544-a987883a968c",
+    "colId": "d1d343f5-c9c3-4a43-91cd-a789de2d20ff",
+    "containerId": "",
+    "name": "event_plan",
+    "url": "http://localhost:8000/api/event-plan/1/",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2022-06-12T13:47:28.671Z",
+    "modified": "2022-06-12T13:47:45.596Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "2d4d4d5c-0255-49f3-998a-83f4aee28489",
+    "colId": "d1d343f5-c9c3-4a43-91cd-a789de2d20ff",
+    "containerId": "",
+    "name": "event_plan",
+    "url": "http://localhost:8000/api/event-plan/",
+    "method": "POST",
+    "sortNum": 20000,
+    "created": "2022-06-12T18:33:44.624Z",
+    "modified": "2022-06-12T18:53:52.356Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n    \"equip_id\": \"1\",\n    \"event_type\": \"PLANNED_SINGLE\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

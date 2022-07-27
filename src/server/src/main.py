@@ -124,12 +124,39 @@ async def get_event_types(
 
 
 @app.get("/api/{equip_id}/event-plan/", response_model=list[schemas.EventPlan])
-async def get_event_plan(
+async def get_event_plan_for_equip(
     equip_id: int,
     db: Session = Depends(get_db),
-) -> list[schemas.EventPlan]:
+) -> list[models.EventPlan]:
+    """Получить все планируемые работ для оборудования."""
+    return crud.read_event_plan_by_equip_id(db, equip_id)
+
+
+@app.get(
+    "/api/event-plan/{event_plan_id}/",
+    response_model=schemas.EventPlan,
+)
+async def get_event_plan(
+    event_plan_id: int,
+    db: Session = Depends(get_db),
+) -> models.EventPlan:
     """Получить план работ."""
-    return crud.read_event_plan(db, equip_id)
+    return crud.read_event_plan(db, event_plan_id)
+
+
+@app.post("/api/event-plan/", response_model=schemas.EventPlan)
+async def post_event_plan(
+    event_plan: schemas.EventPlan,
+    db: Session = Depends(get_db),
+) -> models.EventPlan:
+    """Создаем новую запись запланированных работ."""
+    return crud.create_event_plan(
+        db=db,
+        equip_id=event_plan.equip_id,
+        name=event_plan.name,
+        description=event_plan.description,
+        value=event_plan.value,
+    )
 
 
 def export_openapi() -> None:

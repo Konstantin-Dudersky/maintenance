@@ -129,10 +129,35 @@ def create_event_status(
 # EventPlan -------------------------------------------------------------------
 
 
-def read_event_plan(
+def create_event_plan(
     db: Session,
     equip_id: int,
+    name: str,
+    description: str,
+    value: int,
 ) -> models.EventPlan:
+    """Создаем новую запись запланированных работ."""
+    stmt = select(models.Equip).where(models.Equip.equip_id == equip_id)
+    equip: models.Equip = db.scalars(stmt).first()
+    if equip is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Оборудование с equip_id={equip_id} не найдено.",
+        )
+    event_plan = models.EventPlan()
+    event_plan.equip = equip
+    event_plan.name = name
+    event_plan.description = description
+    event_plan.value = value
+    db.add(event_plan)
+    db.commit()
+    return event_plan
+
+
+def read_event_plan_by_equip_id(
+    db: Session,
+    equip_id: int,
+) -> list[models.EventPlan]:
     """Получить план работ."""
     stmt = select(models.Equip).where(models.Equip.equip_id == equip_id)
     equip: models.Equip = db.scalars(stmt).first()
@@ -143,3 +168,20 @@ def read_event_plan(
         )
     stmt = select(models.EventPlan).where(models.EventPlan.equip == equip)
     return db.scalars(stmt).all()
+
+
+def read_event_plan(
+    db: Session,
+    event_plan_id: int,
+) -> models.EventPlan:
+    """Получить план работ."""
+    stmt = select(models.EventPlan).where(
+        models.EventPlan.event_plan_id == event_plan_id,
+    )
+    event_plan: models.EventPlan = db.scalars(stmt).first()
+    if event_plan is None:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=f"Запись с event_plan_id={event_plan_id} не найдена.",
+        )
+    return event_plan

@@ -48,7 +48,7 @@ class EventType(BaseModel):
 class EventPlan(BaseModel):
     """План работ."""
 
-    event_plan_id: int
+    event_plan_id: int | None
     equip_id: int
     event_type: EventType
     name: str

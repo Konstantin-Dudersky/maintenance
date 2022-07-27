@@ -96,7 +96,7 @@ class EventPlan(Base):
         back_populates="events_plan",
     )
     # fields
-    name: EventStatuses = Column(String)
+    name: str = Column(String)
     description: str = Column(String)
     value: int = Column(Integer)
 

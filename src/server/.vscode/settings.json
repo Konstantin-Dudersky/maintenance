@@ -17,7 +17,6 @@
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
     "python.formatting.blackArgs": [
-        "--preview",
         "--line-length",
         "79"
     ],
