@@ -6,6 +6,6 @@ body {
     color: var(--text-color);
 }
 
-.p-disabled, .p-component:disabled {
+/* .p-disabled, .p-component:disabled {
     opacity: 0.8;
-}
+} */

@@ -1,0 +1,52 @@
+<p-dialog
+  *ngIf="event_plan"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{width: '600px'}"
+  (onHide)="close()">
+  <ng-template pTemplate="header">
+    <h3>Периодическая работа</h3>
+  </ng-template>
+
+  <div class="grid p-fluid">
+    <div class="field col-12">
+      <label for="name" class="block">Название</label>
+      <input id="name"
+        pInputText
+        type="text"
+        [formControl]="form_name" />
+    </div>
+    <div class="field col-12">
+      <label for="value" class="block">Период</label>
+      <p-inputNumber inputId="value"
+        [formControl]="form_value"
+        [suffix]="' ч'">
+      </p-inputNumber>
+    </div>
+    <div class="filed col-12">
+      <label for="description" class="block">Описание</label>
+      <textarea id='description' pInputTextarea
+        [formControl]="form_description"
+        [rows]="5"></textarea>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      [icon]="'fa-solid fa-trash'"
+      [label]="'Удалить'"
+      [styleClass]="'p-button-primary'"
+      (click)="delete()"></p-button>
+    <p-button
+      [disabled]="!(form.valid && form.dirty) "
+      [icon]="'fa-solid fa-save'"
+      [label]="'Сохранить'"
+      [styleClass]="'p-button-primary'"
+      (click)="save()"></p-button>
+    <p-button
+      [icon]="'fa-solid fa-cancel'"
+      [label]="'Отмена'"
+      [styleClass]="'p-button-primary'"
+      (click)="close()"></p-button>
+  </ng-template>
+</p-dialog>

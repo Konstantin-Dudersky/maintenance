@@ -1,11 +1,3 @@
-<p-toolbar>
-  <div class="p-toolbar-group-left">
-    <p-button
-      [icon]="'fa-solid fa-add'"
-      [label]="'Добавить'"></p-button>
-  </div>
-</p-toolbar>
-
 <p-table #dt
   [columns]="cols"
   [styleClass]="'p-datatable-sm p-datatable-gridlines'"
@@ -26,7 +18,10 @@
       <td>
         <p-button
           [icon]="'fa-solid fa-edit'"
-          [pTooltip]="'Редактировать'"></p-button>
+          [pTooltip]="'Редактировать'"
+          (onClick)="cyclic_edit.open(
+            event.equip_id,
+            event.event_plan_id)"></p-button>
       </td>
     </tr>
   </ng-template>
@@ -34,3 +29,13 @@
     Итого: {{event_plan ? event_plan.length : 0 }}
   </ng-template>
 </p-table>
+
+<p-toolbar>
+  <div class="p-toolbar-group-left">
+    <p-button
+      [icon]="'fa-solid fa-add'"
+      [label]="'Добавить'"></p-button>
+  </div>
+</p-toolbar>
+
+<app-event-plan-cyclic-edit #cyclic_edit></app-event-plan-cyclic-edit>

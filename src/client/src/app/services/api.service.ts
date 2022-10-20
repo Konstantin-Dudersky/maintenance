@@ -64,9 +64,15 @@ export class ApiService {
     )
   }
 
-  getEventPlan(equip_id: number): Observable<EventPlan[]> {
+  getEventPlanForEquip(equip_id: number): Observable<EventPlan[]> {
     return this.http.get<EventPlan[]>(
       `${this.IP}/${equip_id}/event-plan/`,
+    )
+  }
+
+  getEventPlan(event_plan_id: number): Observable<EventPlan> {
+    return this.http.get<EventPlan>(
+      `${this.IP}/event-plan/${event_plan_id}/`,
     )
   }
 

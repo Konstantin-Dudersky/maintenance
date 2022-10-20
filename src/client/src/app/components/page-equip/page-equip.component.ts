@@ -5,7 +5,6 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { filter, Observable, of, Subscription, switchMap } from 'rxjs';
 
 import { Equip } from 'src/app/models/equip';
-import { EventPlan } from 'src/app/models/eventPlan';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({

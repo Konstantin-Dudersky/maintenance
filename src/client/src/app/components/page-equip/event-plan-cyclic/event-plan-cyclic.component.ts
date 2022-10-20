@@ -32,7 +32,7 @@ export class EventPlanCyclicComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.event_plan$ = this.equip_id.pipe(
-      switchMap(equip_id => this.api.getEventPlan(equip_id))
+      switchMap(equip_id => this.api.getEventPlanForEquip(equip_id))
     ).subscribe({
       next: (event_plan) => this.event_plan = event_plan,
       error: (error) => this.msg.add(addErrorMsg(error))

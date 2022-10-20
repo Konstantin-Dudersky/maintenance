@@ -25,6 +25,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenubarModule } from 'primeng/menubar';
 import { PanelModule } from 'primeng/panel';
@@ -32,12 +34,14 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { EventPlanCyclicComponent } from './components/page-equip/event-plan-cyclic/event-plan-cyclic.component';
+import { EventPlanCyclicEditComponent } from './components/page-equip/event-plan-cyclic-edit/event-plan-cyclic-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EventInfoComponent,
     EventPlanCyclicComponent,
+    EventPlanCyclicEditComponent,
     MenuComponent,
     PageMainComponent,
     PageEquipComponent,
@@ -59,6 +63,8 @@ import { EventPlanCyclicComponent } from './components/page-equip/event-plan-cyc
     DialogModule,
     DividerModule,
     DropdownModule,
+    InputTextareaModule,
+    InputNumberModule,
     InputTextModule,
     MenubarModule,
     PanelModule,
